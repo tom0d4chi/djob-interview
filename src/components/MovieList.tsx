@@ -10,24 +10,16 @@ export default function MovieList() {
     const [categories, setCategories] = useState<string[]>([])
 
     const deleteMovie = (id: number) => {
-        let updatedMovies = [... movies];
-        let updatedCategories = [... categories];
-
-        const index = movies.findIndex(movie => movie.id === id);
-        const movieCategory = movies.find(movie => movie.id === id)?.category;
-        let isCategoryInMovies = false;
-
-        updatedMovies.splice(index, 1);
-
-        updatedMovies.forEach(movie => {
-            if (movie.category === movieCategory){
-                isCategoryInMovies = true;
-            }
-        })
-
-        if(!isCategoryInMovies){
-            updatedCategories = updatedCategories.filter(category => category !== movieCategory)
-        }
+        const movieToDelete = movies.find(movie => movie.id === id);
+        if (!movieToDelete) return;
+    
+        const updatedMovies = movies.filter(movie => movie.id !== id);
+        
+        const isCategoryInMovies = updatedMovies.some(movie => movie.category === movieToDelete.category);
+    
+        const updatedCategories = isCategoryInMovies
+            ? categories
+            : categories.filter(category => category !== movieToDelete.category);
         
         setMovies(updatedMovies);   
         setCategories(updatedCategories); 
