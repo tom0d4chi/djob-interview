@@ -80,8 +80,8 @@ const movies = [
   },
   {
     id: "13",
-    title: "Les Intouchables",
-    category: "Comédie",
+    title: "Intouchables",
+    category: "Comedy",
     likes: 320,
     dislikes: 10,
   },
@@ -95,7 +95,7 @@ const movies = [
   {
     id: "15",
     title: "Le Dîner de Cons",
-    category: "Comédie",
+    category: "Comedy",
     likes: 188,
     dislikes: 3,
   },
@@ -109,7 +109,7 @@ const movies = [
   {
     id: "17",
     title: "La Grande Vadrouille",
-    category: "Comédie",
+    category: "Comedy",
     likes: 98,
     dislikes: 7,
   },
@@ -123,7 +123,7 @@ const movies = [
   {
     id: "19",
     title: "Bienvenue chez les Ch'tis",
-    category: "Comédie",
+    category: "Comedy",
     likes: 277,
     dislikes: 9,
   },
@@ -144,7 +144,7 @@ const movies = [
   {
     id: "22",
     title: "Les Demoiselles de Rochefort",
-    category: "Comédie musicale",
+    category: "Comedy musicale",
     likes: 66,
     dislikes: 3,
   },

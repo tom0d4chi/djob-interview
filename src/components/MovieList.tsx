@@ -1,14 +1,18 @@
 import { movies$ } from "../data/mock-data";
-import { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { useEffect, useState, useRef} from "react";
 import { Movie } from "../types"
 import MovieCard from "./MovieCard"
 import SelectCategory from "./SelectCategory";
 
 export default function MovieList() {
 
-    const [movies, setMovies] = useState<Movie[]>([])
-    const [categories, setCategories] = useState<string[]>([])
-    const [selectedCategory, setSelectedCategory] = useState<string>("Tout")
+    const [movies, setMovies] = useState<Movie[]>([]);
+    const [categories, setCategories] = useState<string[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<string>("Tout");
+    
+    const movieRefs = useRef<HTMLDivElement[]>([]);
+    movieRefs.current = []; 
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category)
@@ -55,7 +59,21 @@ export default function MovieList() {
             )
         };
         fetchMovies();
-    },[])
+    },[]);
+
+    useEffect(() => {
+        gsap.fromTo(
+            movieRefs.current,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, stagger: 0.02, duration: 0.5, ease: "power3.out" }
+        );
+    }, [movies, selectedCategory]);
+
+    const addToRefs = (el: HTMLDivElement) => {
+        if (el && !movieRefs.current.includes(el)) {
+            movieRefs.current.push(el);
+        }
+    };
     
     return (
         <>
@@ -69,8 +87,12 @@ export default function MovieList() {
                     movies.length > 0 ?
                         
                         movies.filter(movie => movie.category === selectedCategory || selectedCategory === "Tout")
-                            .map((movie) => 
-                                <MovieCard key={movie.id} movie={movie} deleteMovie={deleteMovie} />
+                            .map((movie) => (
+                                <div key={movie.id} ref={addToRefs}>
+                                    <MovieCard key={movie.id} movie={movie} deleteMovie={deleteMovie} />
+                                </div>
+                            )
+
                             )
                             : "loading"
                 }
