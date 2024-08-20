@@ -1,11 +1,7 @@
-import { Movie } from '../types';
+import { MovieCardProps } from '../types';
 import { useEffect, useState } from 'react';
 
-interface MovieCardProps {
-    movie: Movie
-}
-
-export default function MovieCard({ movie }: MovieCardProps){
+export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
     const [posterUrl, setPosterUrl] = useState<string | null>(null)
 
     useEffect(() => {
@@ -30,7 +26,7 @@ export default function MovieCard({ movie }: MovieCardProps){
 
     return(
         <div className = "aspect-[2/3] bg-cover rounded-md" style={{backgroundImage: `url(${posterUrl})`}}>
-
+            <button onClick={() => deleteMovie(movie.id)}>delete</button>
         </div>
     )
 }

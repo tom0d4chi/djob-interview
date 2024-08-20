@@ -5,3 +5,7 @@ export interface Movie {
     likes: number;
     dislikes: number;
 }
+export interface MovieCardProps {
+    movie: Movie;
+    deleteMovie: (id: number) => void;
+}
