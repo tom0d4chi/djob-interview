@@ -9,3 +9,7 @@ export interface MovieCardProps {
     movie: Movie;
     deleteMovie: (id: number) => void;
 }
+export interface SelectCategoryProps {
+    categories: string[]
+}
+

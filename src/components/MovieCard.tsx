@@ -25,7 +25,7 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
     }, [])
 
     return(
-        <div className = "aspect-[2/3] bg-cover rounded-md" style={{backgroundImage: `url(${posterUrl})`}}>
+        <div className = "aspect-[2/3] bg-cover rounded-md hover:scale-105 transition-all" style={{backgroundImage: `url(${posterUrl})`}}>
             <button onClick={() => deleteMovie(movie.id)}>delete</button>
         </div>
     )
