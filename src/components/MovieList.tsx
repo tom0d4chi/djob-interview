@@ -8,6 +8,11 @@ export default function MovieList() {
 
     const [movies, setMovies] = useState<Movie[]>([])
     const [categories, setCategories] = useState<string[]>([])
+    const [selectedCategory, setSelectedCategory] = useState<string>("Tout")
+
+    const handleCategoryChange = (category: string) => {
+        setSelectedCategory(category)
+    }
 
     const deleteMovie = (id: number) => {
         const movieToDelete = movies.find(movie => movie.id === id);
@@ -26,7 +31,11 @@ export default function MovieList() {
     }
 
     useEffect(() => {
-        const initialCategories = [...categories]
+        const initialCategories = [...categories];
+        if(!initialCategories.includes("Tout")){
+            initialCategories.push("Tout")
+        }
+        
         const fetchMovies = async () => {
             return (
                 movies$
@@ -49,15 +58,20 @@ export default function MovieList() {
     
     return (
         <>
-            <SelectCategory categories={categories}/>
+            <SelectCategory 
+                categories={categories} 
+                selectedCategory={selectedCategory} 
+                handleCategoryChange={handleCategoryChange}
+            />
             <div className={"p-2 gap-2 grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))]"}>
                 {
                     movies.length > 0 ?
                         
-                        movies.map((movie) => 
-                            <MovieCard key={movie.id} movie={movie} deleteMovie={deleteMovie} />
-                        )
-                        : "loading"
+                        movies.filter(movie => movie.category === selectedCategory || selectedCategory === "Tout")
+                            .map((movie) => 
+                                <MovieCard key={movie.id} movie={movie} deleteMovie={deleteMovie} />
+                            )
+                            : "loading"
                 }
             </div>
         </>

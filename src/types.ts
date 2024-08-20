@@ -10,6 +10,8 @@ export interface MovieCardProps {
     deleteMovie: (id: number) => void;
 }
 export interface SelectCategoryProps {
-    categories: string[]
+    categories: string[];
+    selectedCategory: string;
+    handleCategoryChange: (category: string) => void;
 }
 
