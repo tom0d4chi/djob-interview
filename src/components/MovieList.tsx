@@ -22,12 +22,13 @@ export default function MovieList() {
         
         const isCategoryInMovies = updatedMovies.some(movie => movie.category === movieToDelete.category);
     
-        const updatedCategories = isCategoryInMovies
-            ? categories
-            : categories.filter(category => category !== movieToDelete.category);
+        if(!isCategoryInMovies){
+            const updatedCategories = categories.filter(category => category !== movieToDelete.category);
+            setCategories(updatedCategories); 
+            setSelectedCategory("Tout")
+        }
         
         setMovies(updatedMovies);   
-        setCategories(updatedCategories); 
     }
 
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function MovieList() {
         if(!initialCategories.includes("Tout")){
             initialCategories.push("Tout")
         }
-        
+
         const fetchMovies = async () => {
             return (
                 movies$
