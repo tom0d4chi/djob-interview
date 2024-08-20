@@ -20,7 +20,7 @@ export default function MovieList() {
     },[])
     
     return (
-        <div className={"flex flex-wrap gap-2"}>
+        <div className={"gap-2 grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))]"}>
             {
                 movies ?
                     

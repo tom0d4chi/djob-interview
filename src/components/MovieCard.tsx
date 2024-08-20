@@ -29,8 +29,8 @@ export default function MovieCard({ movie }: MovieCardProps){
     }, [])
 
     return(
-        <div className = "h-56 w-36 rounded-md" style={{backgroundImage: `url(${posterUrl})`, backgroundSize: 'cover'}}>
-            {movie.title}
+        <div className = "aspect-[2/3] bg-cover rounded-md" style={{backgroundImage: `url(${posterUrl})`}}>
+
         </div>
     )
 }
