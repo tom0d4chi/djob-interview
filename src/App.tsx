@@ -1,8 +1,12 @@
 import MovieList from './components/MovieList'
+import logo from '../public/assets/logo.svg'
 
 const App = () => {
   return (  
-      <MovieList />
+    <>
+      <img src={logo} alt="" />
+      <MovieList />    
+    </>
   )
 }
 
