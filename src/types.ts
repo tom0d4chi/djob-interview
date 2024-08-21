@@ -11,7 +11,6 @@ export interface MovieCardProps {
 }
 export interface SelectCategoryProps {
     categories: string[];
-    selectedCategory: string;
     handleCategoryChange: (category: string) => void;
 }
 

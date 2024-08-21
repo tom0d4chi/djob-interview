@@ -79,7 +79,6 @@ export default function MovieList() {
         <>
             <SelectCategory 
                 categories={categories} 
-                selectedCategory={selectedCategory} 
                 handleCategoryChange={handleCategoryChange}
             />
             <div className={" gap-3 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>

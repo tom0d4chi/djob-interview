@@ -206,6 +206,6 @@ const movies = [
   }
 ];
 
-export const movies$: Promise<Movie[]> = new Promise((resolve, reject) =>
-  setTimeout(resolve, 1000, movies)
+export const movies$: Promise<Movie[]> = new Promise((resolve) =>
+  setTimeout(resolve, 100, movies)
 );
