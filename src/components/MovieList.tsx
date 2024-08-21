@@ -82,7 +82,7 @@ export default function MovieList() {
                 selectedCategory={selectedCategory} 
                 handleCategoryChange={handleCategoryChange}
             />
-            <div className={"p-2 gap-2 grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))]"}>
+            <div className={"p-2 gap-2 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
                 {
                     movies.length > 0 ?
                         
