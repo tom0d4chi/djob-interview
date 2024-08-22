@@ -81,7 +81,7 @@ export default function MovieList() {
                 categories={categories} 
                 handleCategoryChange={handleCategoryChange}
             />
-            <div className={" gap-3 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
+            <div className={" gap-4 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
                 {
                     movies.length > 0 ?
                         

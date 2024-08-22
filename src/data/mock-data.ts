@@ -203,6 +203,13 @@ const movies = [
     category: "Fantastique",
     likes: 1024,
     dislikes: 50,
+  },
+  {
+    id: "31",
+    title: "La cité de Dieu",
+    category: "Drame",
+    likes: 322,
+    dislikes: 100
   }
 ];
 
