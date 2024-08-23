@@ -39,7 +39,7 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
                 }}
             > 
             <div className='self-end h-6 w-6 flex items-center justify-center'>
-                <button className= {`${isHovered ? 'visible opacity-100 h-6 w-6 text-white' : 'invisible opacity-0 h-0 w-0'} transition-all rounded-full bg-black flex items-center justify-center overflow-hidden`} onClick={() => deleteMovie(movie.id)}>x</button>
+                <button className= {`${isHovered ? 'visible opacity-100 h-6 w-6 text-white' : 'invisible opacity-0 h-0 w-0'} hover:bg-gray-700 transition-all rounded-full bg-black flex items-center justify-center overflow-hidden`} onClick={() => deleteMovie(movie.id)}>x</button>
             </div>
             <div className='flex flex-col'>
                 <div className='text-sm text-white font-semibold'>{movie.title}</div>
