@@ -1,6 +1,6 @@
 # Djobflix
 ![Djobflix Logo](https://github.com/tom0d4chi/djob-interview/blob/master/src/assets/logo.svg?raw=true)
-![Djobflix Screenshot](https://github.com/tom0d4chi/djob-interview/blob/master/src/assets/screenshot/png?raw=true)
+![Djobflix Screenshot](https://github.com/tom0d4chi/djob-interview/blob/master/src/assets/screenshot.png?raw=true)
 
 
 
