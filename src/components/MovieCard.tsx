@@ -8,7 +8,21 @@ import dislike from '../assets/svg/dislike.svg'
 export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
     const [posterUrl, setPosterUrl] = useState<string | null>(null)
     const [isHovered, setIsHovered] = useState<boolean>(false)
+    const [likeStatus, setLikeStatus] = useState<null | boolean>(null)
 
+    const handleLike = () => {
+        if (likeStatus === true){
+            setLikeStatus(null)
+        } else setLikeStatus(true);
+
+    }
+
+    const handleDislike = () => {
+        if (likeStatus === false){
+            setLikeStatus(null)
+        } else setLikeStatus(false);
+
+    }
 
     useEffect(() => {
         const options = {
@@ -75,12 +89,12 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
             
             </div>
             <div className='rounded-full w-11/12 self-center flex justify-evenly bg-[#393939] h-9 mt-2 py-2'>
-                <button>
-                    <img src={like} alt="" className='fill-white'/>
+                <button onClick={handleLike}>
+                    <img src={like} style={{filter: `${likeStatus === true ? 'brightness(100)' : 'none' }`}} alt="" className='fill-white'/>
                 </button>
                 <div className='h-full w-[1px] bg-[#6A6A6A]'/>
-                <button>
-                    <img src={dislike} alt="" />
+                <button onClick={handleDislike}>
+                    <img src={dislike} style={{filter: `${likeStatus === false ? 'brightness(100)' : 'none' }`}} alt="" />
                 </button>
             </div>
         </div>

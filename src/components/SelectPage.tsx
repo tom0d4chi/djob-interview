@@ -1,6 +1,6 @@
 import { SelectPageProps } from '../types'
 
-export default function SelectPage({totalPages = 99, currentPage = 18, setCurrentPage}: SelectPageProps){
+export default function SelectPage({totalPages, currentPage, setCurrentPage}: SelectPageProps){
     
     const displayedPageNumbers = () => {
         let startPage = Math.max(1, currentPage - 2);

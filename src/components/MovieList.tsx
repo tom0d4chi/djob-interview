@@ -5,13 +5,14 @@ import { useEffect, useState, useRef } from "react";
 import MovieCard from "./MovieCard"
 import SelectCategory from "./SelectCategory";
 import SelectPage from "./SelectPage"
+import SelectItemsPerPage from "./SelectItemsPerPage";
 
 export default function MovieList() {
 
     const [movies, setMovies] = useState<Movie[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState<4 | 8 | 12>(8);
+    const [itemsPerPage, setItemsPerPage] = useState<4 | 8 | 12>(4);
     const [categories, setCategories] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("Tout");
     
@@ -72,12 +73,12 @@ export default function MovieList() {
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const paginatedMovies = filteredMovies.slice(startIndex, endIndex);
-            console.log(filteredMovies);
+            console.log(filteredMovies, startIndex, endIndex);
             setMovies(paginatedMovies);
         }
 
         fetchMovies();
-    },[currentPage, selectedCategory]);
+    },[currentPage, selectedCategory, itemsPerPage]);
 
     //animating movie cards
     useEffect(() => {
@@ -96,23 +97,27 @@ export default function MovieList() {
     
     return (
         <>
+            <div className="flex flex-row gap-2">
             <SelectCategory 
                 categories={categories} 
                 handleCategoryChange={handleCategoryChange}
             />
-            <div className={"gap-x-2 gap-y-6 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
+            <SelectItemsPerPage
+                setItemsPerPage={setItemsPerPage}
+            />
+            </div>
+                <div className={"gap-x-2 gap-y-6 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
                 {
                     movies.length > 0 ? 
-                        movies.filter(movie => movie.category === selectedCategory || selectedCategory === "Tout")
-                            .map((movie) => (
+                        movies.map((movie) => (
                                 <div key={movie.id} ref={addToRefs}>
                                     <MovieCard key={movie.id} movie={movie} deleteMovie={deleteMovie} />
                                 </div>
                             )
                             )
-                            : "loading"
+                            : "loading" //j'avais voulu créer un skeleton animé mais manque de temps
                 }
-            </div>
+                </div>
             <SelectPage 
                 totalPages={totalPages}
                 currentPage={currentPage}
