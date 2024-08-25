@@ -1,15 +1,17 @@
 import { movies$ } from "../data/mock-data";
+import Movie from '../types'
 import { gsap } from "gsap";
 import { useEffect, useState, useRef } from "react";
-import { Movie, MovieListProps } from "../types"
 import MovieCard from "./MovieCard"
 import SelectCategory from "./SelectCategory";
 import SelectPage from "./SelectPage"
 
-export default function MovieList({itemsPerPage}: MovieListProps) {
+export default function MovieList() {
 
     const [movies, setMovies] = useState<Movie[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState<4 | 8 | 12>(8);
     const [categories, setCategories] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("Tout");
     
@@ -17,7 +19,8 @@ export default function MovieList({itemsPerPage}: MovieListProps) {
     movieRefs.current = []; 
 
     const handleCategoryChange = (category: string) => {
-        setSelectedCategory(category)
+        setSelectedCategory(category);
+        setCurrentPage(1);
     }
 
     const deleteMovie = (id: number) => {
@@ -37,6 +40,8 @@ export default function MovieList({itemsPerPage}: MovieListProps) {
         setMovies(updatedMovies);   
     }
 
+
+    //fetching movies
     useEffect(() => {
         const initialCategories = [...categories];
         if(!initialCategories.includes("Tout")){
@@ -44,25 +49,37 @@ export default function MovieList({itemsPerPage}: MovieListProps) {
         }
 
         const fetchMovies = async () => {
-            return (
-                movies$
-                .then((data) => {
-                    setMovies(data);
-                    return data})
-                .then(data => {
-                    data.forEach(movie => {
-                        if(!initialCategories.includes(movie.category)){
-                            initialCategories.push(movie.category)
-                        }
-                    });
-                    setCategories(initialCategories);
-                })
-                .catch(e => console.log("Failed to load movies: ", e))
-            )
-        };
-        fetchMovies();
-    },[]);
+            //get movies from file
+            const moviesData = await movies$;
 
+            //set initial categories
+            moviesData.forEach(movie => {
+                if(!initialCategories.includes(movie.category)){
+                    initialCategories.push(movie.category)
+                }
+            });
+            
+            setCategories(initialCategories);
+
+
+            const filteredMovies = selectedCategory === 'Tout'
+                ? moviesData
+                : moviesData.filter(movie => movie.category === selectedCategory);
+
+            setTotalPages(Math.ceil(filteredMovies.length/itemsPerPage));
+
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedMovies = filteredMovies.slice(startIndex, endIndex);
+            console.log(filteredMovies);
+            setMovies(paginatedMovies);
+        }
+
+        fetchMovies();
+    },[currentPage, selectedCategory]);
+
+    //animating movie cards
     useEffect(() => {
         gsap.fromTo(
             movieRefs.current,
@@ -97,6 +114,7 @@ export default function MovieList({itemsPerPage}: MovieListProps) {
                 }
             </div>
             <SelectPage 
+                totalPages={totalPages}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}/>
         </>
