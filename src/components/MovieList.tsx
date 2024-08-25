@@ -83,7 +83,7 @@ export default function MovieList({itemsPerPage}: MovieListProps) {
                 categories={categories} 
                 handleCategoryChange={handleCategoryChange}
             />
-            <div className={"gap-2 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
+            <div className={"gap-x-2 gap-y-6 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
                 {
                     movies.length > 0 ? 
                         movies.filter(movie => movie.category === selectedCategory || selectedCategory === "Tout")

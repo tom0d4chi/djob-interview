@@ -2,6 +2,8 @@ import { MovieCardProps } from '../types';
 import { useEffect, useState } from 'react';
 import { computeRating } from '../utils/utils';
 import cross from '../assets/svg/cross.svg'
+import like from '../assets/svg/like.svg'
+import dislike from '../assets/svg/dislike.svg'
 
 export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
     const [posterUrl, setPosterUrl] = useState<string | null>(null)
@@ -29,7 +31,7 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
     }, [])
 
     return(
-        <div>
+        <div className='flex flex-col'>
             <div className = {`${isHovered ? 'blur-xl' : 'blur-none'} aspect-[2/3] -z-20 rounded-lg scale-90 transition-all duration-200 absolute inset-0`} 
                 style={{backgroundImage: `url(${posterUrl})`}} />
 
@@ -71,6 +73,15 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
             </div>
             </div>
             
+            </div>
+            <div className='rounded-full w-11/12 self-center flex justify-evenly bg-[#393939] h-9 mt-2 py-2'>
+                <button>
+                    <img src={like} alt="" className='fill-white'/>
+                </button>
+                <div className='h-full w-[1px] bg-[#6A6A6A]'/>
+                <button>
+                    <img src={dislike} alt="" />
+                </button>
             </div>
         </div>
     )

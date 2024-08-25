@@ -22,7 +22,7 @@ export default function SelectPage({totalPages = 99, currentPage = 18, setCurren
             {displayedPageNumbers().map(number => 
                 <button 
                     onClick={() => setCurrentPage(number)}
-                    className={`mx-4 rounded-full h-10 w-10 ${number === currentPage ? 'bg-red-400' : ''}`}
+                    className={`mx-4 rounded-full h-10 w-10 ${number !== currentPage ? 'hover:bg-[#636363] transition-all' : ''}`}
                     style={{background: number === currentPage ? 'linear-gradient(30deg, #5123CF, #F52C9A)': ''}}
                     key={number}>
                     {number}
