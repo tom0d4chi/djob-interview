@@ -1,6 +1,7 @@
 import { MovieCardProps } from '../types';
 import { useEffect, useState } from 'react';
 import { computeRating } from '../utils/utils';
+import cross from '../assets/svg/cross.svg'
 
 export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
     const [posterUrl, setPosterUrl] = useState<string | null>(null)
@@ -29,9 +30,14 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
 
     return(
         <div>
-            <div className = {`${isHovered ? 'blur-xl' : 'blur-none'} aspect-[2/3] -z-20 rounded-lg scale-90 transition-all duration-200 absolute inset-0`} style={{backgroundImage: `url(${posterUrl})`}} />
+            <div className = {`${isHovered ? 'blur-xl' : 'blur-none'} aspect-[2/3] -z-20 rounded-lg scale-90 transition-all duration-200 absolute inset-0`} 
+                style={{backgroundImage: `url(${posterUrl})`}} />
 
-            <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className = "hover:scale-105 z-0 aspect-[2/3] bg-cover rounded-lg transition-all relative" style={{backgroundImage: `url(${posterUrl})`}}>
+            <div 
+                onMouseEnter={() => setIsHovered(true)} 
+                onMouseLeave={() => setIsHovered(false)} 
+                className = "hover:scale-105 z-0 aspect-[2/3] bg-cover rounded-lg transition-all relative" 
+                style={{backgroundImage: `url(${posterUrl})`}}>
             <div
                 className="absolute inset-0 rounded-lg px-2 pb-3 pt-2 flex flex-col justify-between"
                 style={{
@@ -39,16 +45,27 @@ export default function MovieCard({ movie, deleteMovie }: MovieCardProps){
                 }}
             > 
             <div className='self-end h-6 w-6 flex items-center justify-center'>
-                <button className= {`${isHovered ? 'visible opacity-100 h-6 w-6 text-white' : 'invisible opacity-0 h-0 w-0'} hover:bg-gray-700 transition-all rounded-full bg-black flex items-center justify-center overflow-hidden`} onClick={() => deleteMovie(movie.id)}>x</button>
+                <button className= {`${isHovered ? 'visible opacity-100 h-6 w-6 text-white' : 'invisible opacity-0 h-0 w-0'} hover:bg-gray-700 transition-all rounded-full bg-black flex items-center justify-center overflow-hidden`} 
+                        onClick={() => deleteMovie(movie.id)}>
+                        <img src={ cross } alt="" />
+                </button>
             </div>
             <div className='flex flex-col'>
                 <div className='text-sm text-white font-semibold'>{movie.title}</div>
                 <div className='text-xs text-gray-400'>{movie.category}</div>
                 <div className='flex items-center mt-1 gap-2'>
                     <div className='relative rounded grow bg-gray-200 h-1'>
-                        <div className='absolute inset-0 rounded h-full' style={{boxShadow: '0px 1px 2px rgba(255,255,255,0.7) inset', background: "linear-gradient(90deg, #5123CF, #F52C9A)", width:`${computeRating(movie.likes, movie.dislikes).likeBarWidth}%`}}></div>
+                        <div 
+                            className='absolute inset-0 rounded h-full' 
+                            style={{
+                                boxShadow: '0px 1px 2px rgba(255,255,255,0.7) inset', 
+                                background: "linear-gradient(90deg, #5123CF, #F52C9A)", 
+                                width:`${computeRating(movie.likes, movie.dislikes).likeBarWidth}%`}}
+                        />
                     </div>
-                    <div className='text-white text-xs font-black flex justify-end '>{computeRating(movie.likes, movie.dislikes).display}</div>
+                    <div className='text-white text-xs font-black flex justify-end '>
+                        {computeRating(movie.likes, movie.dislikes).display}
+                    </div>
                 </div>
 
             </div>

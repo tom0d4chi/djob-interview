@@ -1,13 +1,15 @@
 import { movies$ } from "../data/mock-data";
 import { gsap } from "gsap";
-import { useEffect, useState, useRef} from "react";
-import { Movie } from "../types"
+import { useEffect, useState, useRef } from "react";
+import { Movie, MovieListProps } from "../types"
 import MovieCard from "./MovieCard"
 import SelectCategory from "./SelectCategory";
+import SelectPage from "./SelectPage"
 
-export default function MovieList() {
+export default function MovieList({itemsPerPage}: MovieListProps) {
 
     const [movies, setMovies] = useState<Movie[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState<string[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>("Tout");
     
@@ -81,21 +83,22 @@ export default function MovieList() {
                 categories={categories} 
                 handleCategoryChange={handleCategoryChange}
             />
-            <div className={" gap-2 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
+            <div className={"gap-2 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))]"}>
                 {
-                    movies.length > 0 ?
-                        
+                    movies.length > 0 ? 
                         movies.filter(movie => movie.category === selectedCategory || selectedCategory === "Tout")
                             .map((movie) => (
                                 <div key={movie.id} ref={addToRefs}>
                                     <MovieCard key={movie.id} movie={movie} deleteMovie={deleteMovie} />
                                 </div>
                             )
-
                             )
                             : "loading"
                 }
             </div>
+            <SelectPage 
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}/>
         </>
     )
 }
