@@ -13,6 +13,7 @@ Cette application web permet aux utilisateurs de consulter une liste de films. E
 
 - React
 - TypeScript
+- TailwindCSS
 - GSAP (librairie d'animations)
 - pnpm (gestionnaire de paquets)
 
